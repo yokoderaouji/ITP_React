@@ -11,9 +11,9 @@
 }
 
 .chat-header-kids {
-  background: #ff6b6b;
+  background: #00786e;
   color: white;
-  text-align: center;
+  text-align: left;
   padding: 20px;
   font-size: 28px;
   font-weight: bold;
@@ -40,6 +40,7 @@
   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   animation: popIn 0.4s ease-out;
   position: relative;
+  text-align: left;
 }
 
 .message-kids.user {
@@ -51,8 +52,8 @@
 
 .message-kids.ai {
   align-self: flex-start;
-  background: #b2ff59;
-  color: #333;
+  background: #696868;
+  color: white;
   border-bottom-left-radius: 8px;
 }
 
@@ -80,7 +81,7 @@
 .chat-input-area-kids {
   padding: 20px;
   background: rgba(255,255,255,0.95);
-  border-top: 5px solid #ff6b6b;
+  border-top: 5px solid #00786e;
 }
 
 .chat-input-wrapper-kids {
@@ -109,9 +110,9 @@
   width: 70px;
   height: 70px;
   border-radius: 50%;
-  background: #ff6b6b;
+  background: #00786e;
   border: none;
-  font-size: 36px;
+  font-size: 20px;
   color: white;
   cursor: pointer;
   box-shadow: 0 6px 20px rgba(255,107,107,0.5);
@@ -123,7 +124,7 @@
 
 .chat-send-button-kids:hover:not(:disabled) {
   transform: scale(1.1);
-  background: #ff5252;
+  background: #1baad5;
 }
 
 .chat-send-button-kids:disabled {
