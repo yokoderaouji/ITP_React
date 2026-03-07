@@ -5,3 +5,8 @@ export interface ChatMessage {
   sender: 'user' | 'ai';
   timestamp: Date;
 }
+
+
+export interface ChatPageProps {
+  onTokenExpired?: () => void;
+}

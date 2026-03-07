@@ -243,3 +243,31 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+/* Track back button styling */
+.trackback-button-kids {
+  display: block;
+  margin-top: 8px;
+  padding: 8px 16px;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ff8787 100%);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(255, 107, 107, 0.3);
+  transition: all 0.3s ease;
+  font-family: inherit;
+}
+
+.trackback-button-kids:hover {
+  background: linear-gradient(135deg, #ff5252 0%, #ff6b6b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px rgba(255, 107, 107, 0.4);
+}
+
+.trackback-button-kids:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(255, 107, 107, 0.3);
+}

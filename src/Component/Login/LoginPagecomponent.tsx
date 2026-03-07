@@ -163,6 +163,21 @@ export default function LoginPageComponent() {
             />
           </div>
 
+          <div className="form-group">
+                <label className="form-label">
+                  <span className="form-label-emoji">🔑</span>
+                   Password
+                </label>
+                <input
+                  type="password"
+                  name="userPassword"
+                  value={formData.userPassword}
+                  onChange={handleInputChange}
+                  placeholder="Enter password..."
+                  className="form-input"
+                />
+              </div>
+
           {/* Role Selection */}
           <div className="form-group">
             <label className="form-label">
@@ -209,23 +224,6 @@ export default function LoginPageComponent() {
             </div>
           )}
 
-          {/* Parent Login Toggle */}
-          {/* <div className={`parent-password-section ${isParentLogin ? 'show' : ''}`}> */}
-              <div className="form-group">
-                <label className="form-label">
-                  <span className="form-label-emoji">🔑</span>
-                   Password
-                </label>
-                <input
-                  type="password"
-                  name="userPassword"
-                  value={formData.userPassword}
-                  onChange={handleInputChange}
-                  placeholder="Enter password..."
-                  className="form-input"
-                />
-              </div>
-            {/* </div> */}
 
           {/* Login Buttons */}
           <div className="login-button-group">

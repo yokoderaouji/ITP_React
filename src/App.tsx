@@ -52,6 +52,17 @@ function App() {
     setCurrentPage('login');
   };
 
+  const handleTokenExpired = () => {
+    // clear any sensitive data and return to login
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('userLogin');
+    localStorage.removeItem('selectedStory');
+    // alert('Your session has expired. Please log in again.');
+    setIsLoggedIn(false);
+    setCurrentUser(null);
+    setCurrentPage('login');
+  };
+
   return (
     <div className="App">
       {currentPage === 'login' ? (
@@ -61,6 +72,7 @@ function App() {
           <MainPageComponent 
             onStorySelect={handleStorySelect}
             onLogout={handleLogout}
+            onTokenExpired={handleTokenExpired}
           />
         </>
       ) : currentPage === 'chat' && currentUser ? (
@@ -76,7 +88,7 @@ function App() {
             fontFamily: 'Comic Sans MS, Arial Rounded MT Bold'
           }}>
             <div>
-              <strong>👋 Welcome, {currentUser.username}!</strong> ({currentUser.role === 'kid' ? '🧒 Kid Mode' : '👨‍👩‍👧 Parent Mode'})
+              <strong>👋 Welcome, {currentUser.username}!</strong> 
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
               <button 
@@ -111,7 +123,7 @@ function App() {
               </button>
             </div>
           </div>
-          <ChatPageComponent/>
+          <ChatPageComponent onTokenExpired={handleTokenExpired} />
         </>
       ) : (
         <LoginPageComponent />

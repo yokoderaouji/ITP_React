@@ -41,13 +41,14 @@ interface ApiStory {
 interface MainPageComponentProps {
   onStorySelect?: (storyId: string) => void;
   onLogout?: () => void;
+  onTokenExpired?: () => void; // invoked when server indicates token expiry
 }
 
 // we'll keep a placeholder so the type above compiles correctly; actual data comes from API
 // const AVAILABLE_STORIES: Story[] = [];
 
 
-export default function MainPageComponent({ onStorySelect, onLogout }: MainPageComponentProps) {
+export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpired }: MainPageComponentProps) {
   const [currentUser, setCurrentUser] = useState<UserLogin | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -86,6 +87,11 @@ export default function MainPageComponent({ onStorySelect, onLogout }: MainPageC
           ...(token ? { Authorization: `Bearer ${token}` } : {}),
         },
       });
+      if (res.status === 401 || res.status === 403) {
+        // token probably expired or unauthorized
+        if (onTokenExpired) onTokenExpired();
+        return;
+      }
       if (!res.ok) throw new Error(`Fetch failed ${res.status}`);
       const json = await res.json();
       if (json.status === 'SUCCESS' && Array.isArray(json.data)) {
@@ -183,12 +189,12 @@ export default function MainPageComponent({ onStorySelect, onLogout }: MainPageC
           </div>
         </div>
         <div className="navbar-right">
-          <button 
+          {/* <button 
             className="navbar-button btn-nav-settings"
             onClick={() => console.log('Settings clicked')}
           >
             ⚙️ Settings
-          </button>
+          </button> */}
           <button 
             className="navbar-button btn-nav-logout"
             onClick={handleLogout}
@@ -253,7 +259,7 @@ export default function MainPageComponent({ onStorySelect, onLogout }: MainPageC
                 <div className="story-card-footer">
                   {story.locked ? (
                     <button className="story-button btn-play" disabled>
-                      🔒 Locked (Level {story.requiredLevel}+)
+                      🔒 Locked 
                     </button>
                   ) : (
                     <button className="story-button btn-play">
