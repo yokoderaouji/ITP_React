@@ -1,3 +1,5 @@
+import { UserLogin } from "../../App";
+
 export interface ChatMessage {
   id: number;
   text: string;
@@ -9,4 +11,5 @@ export interface ChatMessage {
 
 export interface ChatPageProps {
   onTokenExpired?: () => void;
+  currentUser: UserLogin | null;
 }

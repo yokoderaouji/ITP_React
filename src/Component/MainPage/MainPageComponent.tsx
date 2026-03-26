@@ -135,6 +135,7 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
       if (onStorySelect) {
  
         localStorage.setItem('selectedStory', story.id);
+        console.log('Selected story:', story.id);
         onStorySelect(storyId);
       }
       // } else {

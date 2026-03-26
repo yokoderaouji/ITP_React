@@ -30,6 +30,8 @@ export default function LoginPageComponent() {
 
   // Handle role selection
   const handleRoleChange = (role: 'kid' | 'parent') => {
+    console.log('Role changed to: ' + role);
+    setIsParentLogin(role === 'parent');
     setFormData(prev => ({
       ...prev,
       role,
@@ -75,6 +77,7 @@ export default function LoginPageComponent() {
 
     try {
       const usertype = isParentLogin ? 'parent' : 'kid';
+      console.log('Attempting login with:  ' +  usertype);
 
         const response = await fetch(`http://localhost:8000/chatpj/Login`, {   
             method: 'POST',
@@ -90,32 +93,30 @@ export default function LoginPageComponent() {
 
         const data = await response.json();
 
-        // Handle backend error responses (400, 401, etc.)
         if (!response.ok) {
             throw new Error(data.error || 'Login failed. Please try again.');
         }
 
-        // ✅ SUCCESS
+
         setSuccessMessage(`Welcome, ${formData.username}! 🎉`);
 
-        // Store everything in localStorage (real tokens + user info)
+
         const loginData = {
             username: data.user.username,
-            role: data.user.type,                    // e.g. "Kid" or "Parent"
+            role: data.user.type,                    
             loginTime: new Date().toISOString(),
             isParent: isParentLogin,
-            accessToken: data.access,                // ← Important for future API calls
+            accessToken: data.access,                
             refreshToken: data.refresh,
         };
 
         localStorage.setItem('userLogin', JSON.stringify(loginData));
-        localStorage.setItem('accessToken', data.access);    // Easy access later
+        localStorage.setItem('accessToken', data.access);    
         localStorage.setItem('refreshToken', data.refresh);
 
-        // Redirect after showing success message
         setTimeout(() => {
-            window.location.href = '/';   // or use react-router: navigate('/')
-        }, 2000);
+            window.location.href = '/';  
+        }, 1000);
 
     } catch (error: any) {
       const errorMsg = error.message || 'Something went wrong! Please try again. 😅';
@@ -264,7 +265,7 @@ export default function LoginPageComponent() {
 
         {/* Footer */}
         <div className="login-footer">
-          <p className="footer-text">
+          {/* <p className="footer-text">
             🎨 Made with love for young adventurers everywhere!
           </p>
           <div className="safety-badges">
@@ -280,7 +281,7 @@ export default function LoginPageComponent() {
               <span className="badge-emoji">🎯</span>
               Fun
             </div>
-          </div>
+          </div> */}
 
         </div>
       </div>

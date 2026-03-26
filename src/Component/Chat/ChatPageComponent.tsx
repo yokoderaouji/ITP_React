@@ -2,12 +2,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './chatpage.css'; 
 import { ChatMessage, ChatPageProps } from './ChatInterface';
+import ReportDialog from './ReportDialog/ReportDialog';
 
 
 
 
 
-export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
+export default function ChatPageComponent({ onTokenExpired,currentUser }: ChatPageProps) {
   const tempmsg = "<html><head><title id='1'>The 5CM Adventure(1)</title></head><body style=\"background-color: #1a1a2e; color: #e0e0ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0;\"><div style=\"padding: 20px 10px; text-align: center; background: linear-gradient(90deg, #6a00ff 0%, #00ffc8 100%); color: #1a1a2e; font-size: 28px; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; border-bottom: 5px solid #ffc800; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);\">THE 5CM ADVENTURE(1)</div><details open style=\"background-color: #3a3f5b; margin: 15px; padding: 5px; border: 2px solid #00ffc8; border-radius: 10px;\"><summary style=\"font-weight: bold; cursor: pointer; color: #00ffc8; padding: 10px; font-size: 16px; background-color: #3a3f5b; border-radius: 8px; list-style: none; text-shadow: 0 0 5px #00ffc8;\">::: CURRENT STATUS ::: (Click to Toggle)</summary><div style=\"padding: 10px 15px; font-size: 14px; color: #e0e0ff;\"><p style=\"margin: 5px 0;\">◆ Real Time: <span style=\"color: #ffc800;\">10:00 AM</span> (10 hours until parents return)</p><p style=\"margin: 5px 0;\">◆ Current Height: <span style=\"color: #ffc800;\">5 cm</span></p><p style=\"margin: 5px 0;\">◆ Location: <span style=\"color: #e0e0ff;\">Floor, next to the Mysterious Puddle</span></p><p style=\"margin: 5px 0;\">◆ Stamina: <span style=\"color: #00ffc8;\">■■■■</span><span style=\"color: #6d6d8d;\">□</span> (4/5)</p><p style=\"margin: 5px 0;\">◆ Hunger: <span style=\"color: #6d6d8d;\">□□□□□</span> (0/5)</p><p style=\"margin: 5px 0;\">◆ Inventory: <span style=\"color: #e0e0ff;\">None</span></p><p style=\"margin: 5px 0;\">◆ Key Clues: <span style=\"color: #ffc800;\">0/4</span></p><p style=\"margin: 5px 0;\">◆ Current Biggest Threat: <span style=\"color: #6d6d8d;\">None (Cat sleeping on bed)</span></p></div></details><div style=\"background-color: #1a1a2e; margin: 15px; padding: 20px; border: 1px solid #3a3f5b; border-radius: 10px;\"><p>You wake up to a world that has fundamentally changed. The room is a colossal, alien landscape. The soft cotton of your pajamas feels like heavy armor on your 5 cm body. You are lying next to a small, dark stain—a 'Mysterious Puddle' from last night's spilled juice, now a glistening, waist-high pool.</p><p>A few meters away, what looks like a mountain range of brown dust and hair lies next to a colossal, perfectly round structure: a Yo-Yo, now a giant, silent wheel. The carpet fibers look like an impenetrable jungle, and the air is thick with the scent of dust.</p><p>Your first priority must be to find safety or a source of food. The scale is terrifying, and the clock is ticking.</p><p style=\"color: #ffc800; font-weight: bold; margin-top: 15px;\">What is your first move?</p></div><div style=\"margin: 15px; padding: 15px; background-color: #3a3f5b; border-radius: 10px; text-align: center; border: 2px solid #6a00ff;\"><div style=\"display: flex; flex-wrap: wrap; justify-content: center; gap: 12px;\"><button onclick=\"const textarea = document.querySelector('#chat-textarea-kids');if (textarea) {textarea.value='Carefully investigate the Mysterious Puddle, noting its color and composition, and whether it is a potential water source.'; textarea.dispatchEvent(new Event('input', { bubbles: true }));} else { alert('textarea not found'); }\" style=\"background-color: #00ffc8; color: #1a1a2e; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px #00ffc8;\">[A] Investigate Puddle (Clue)</button><button onclick=\"const textarea = document.querySelector('#chat-textarea-kids');if (textarea) {textarea.value='Climb the nearest dust bunny mountain to scout the area and look for a biscuit crumb or water droplet.'; textarea.dispatchEvent(new Event('input', { bubbles: true }));} else { alert('textarea not found'); }\" style=\"background-color: #ffc800; color: #1a1a2e; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px #ffc800;\">[B] Search for Supplies (Hunger)</button><button onclick=\"const textarea = document.querySelector('#chat-textarea-kids');if (textarea) {textarea.value='Attempt to climb the giant Yo-Yo to see if it can be stabilized for a look-out post or future escape tool.'; textarea.dispatchEvent(new Event('input', { bubbles: true }));} else { alert('textarea not found'); }\" style=\"background-color: #6a00ff; color: #e0e0ff; border: none; padding: 12px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px #6a00ff;\">[C] Approach Yo-Yo (Gear)</button><button onclick=\"const textarea = document.querySelector('#chat-textarea-kids');if (textarea) {textarea.value='Shout loudly, hoping to attract attention from the giant world, fully aware this will attract the cat.'; textarea.dispatchEvent(new Event('input', { bubbles: true }));} else { alert('textarea not found'); }\" style=\"background-color: #e0e0ff; color: #1a1a2e; border: 3px solid #ff0066; padding: 9px 18px; border-radius: 8px; font-weight: bold; cursor: pointer; font-size: 14px; box-shadow: 0 0 10px #ff0066;\">[D] Call Out Loudly! (DANGER)</button></div></div></body></html>";
 
   const tempstart = "<html><head><title>5CM Adventure Introduction</title></head><body style=\"background-color: #1a1a2e; color: #e0e0ff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0;\"><div style=\"background-color: #3a3f5b; margin: 20px; padding: 25px; border: 3px solid #6a00ff; border-radius: 12px; box-shadow: 0 0 15px rgba(106, 0, 255, 0.7); line-height: 1.6; font-size: 16px;\"><p style=\"font-size: 20px; font-weight: bold; text-align: center; color: #ffc800; border-bottom: 2px solid #ffc800; padding-bottom: 10px; margin-top: 0;\">WELCOME TO YOUR MICRO-ADVENTURE!</p><p>This morning you woke up… and you’re only <strong style=\"color: #00ffc8; font-size: 18px;\">5 centimeters tall!</strong></p><p>That’s smaller than your favorite toy car!</p><p>Your whole room suddenly turned into a giant jungle:</p><ul style=\"list-style-type: none; padding-left: 15px; margin: 10px 0;\"><li style=\"margin-bottom: 5px;\">• Your bed is now a huge mountain</li><li style=\"margin-bottom: 5px;\">• The floor is a giant desert</li><li style=\"margin-bottom: 5px;\">• One biscuit crumb is as big as your dinner plate</li><li style=\"margin-bottom: 5px;\">• And your cat (or dog)? It’s now a <strong style=\"color: #ffc800;\">roaring T-rex monster!</strong></li></ul><p>Your mom and dad went out and will be back at <strong style=\"color: #ffc800;\">8 o’clock tonight.</strong></p><p>If they find you this tiny, they might think you’re a strange little bug!</p><p style=\"font-weight: bold; color: #00ffc8; margin-top: 15px;\">So before 8 PM, you have to:</p><ul style=\"list-style-type: '👉 '; padding-left: 20px; margin: 10px 0; color: #e0e0ff;\"><li>Explore the giant room</li><li>Find food and water (tiny crumbs and water drops)</li><li>Stay away from the cat, ants, and scary spiders</li><li><strong style=\"color: #6a00ff;\">Look for clues to grow back to normal size!</strong></li></ul><p>You can climb <span style=\"color: #00ffc8;\">Lego walls</span>, ride a <span style=\"color: #00ffc8;\">remote-control car</span>, use a <span style=\"color: #00ffc8;\">paper clip as a sword</span>, and turn an <span style=\"color: #00ffc8;\">eraser into shoes</span>!</p><p style=\"font-size: 18px; font-weight: bold; text-align: center; color: #ffc800; margin-top: 20px;\">Every choice is yours—what you do decides if you become a tiny hero… or get caught!</p></div></body></html>"
@@ -21,6 +22,10 @@ export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
   const [storyLoading, setStoryLoading] = useState(true);
   const [userStoryId, setUserStoryId] = useState<number | null>(null);
   const [firstload, setFirstLoad] = useState(true);
+  const [isReportDialogOpen, setIsReportDialogOpen] = useState(false);
+  const [storyTitle, setStoryTitle] = useState('Story');
+  const [kidName, setKidName] = useState('Student');
+  const [ViewState, setViewState] = useState<'new' | 'old'>('old');
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -77,6 +82,7 @@ export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
         body: JSON.stringify(requestBody),
       });
 
+
       if (response.status === 401 || response.status === 403) {
         if (onTokenExpired) onTokenExpired();
         return;
@@ -95,6 +101,7 @@ export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
         sender: entry.entry_role as 'user' | 'ai',
         timestamp: new Date(entry.created_on),
       }));
+
 
       setMessages(historyMessages);
 
@@ -177,6 +184,8 @@ export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
     try {
       setStoryLoading(true);
       const storyId = localStorage.getItem('selectedStory');
+      const selectedKid = localStorage.getItem('selectedKid');
+      console.log('Fetching story content for story ID:', storyId, 'and selected kid:', selectedKid);
       const token = localStorage.getItem('accessToken');
 
       if (!storyId) {
@@ -185,9 +194,14 @@ export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
         return;
       }
 
+      let sendURL = `http://localhost:8000/chatpj/SetUpNewStoryOrGetOldStory?story_id=${storyId}`;
+
+      if (selectedKid) {
+        sendURL += `&kid_id=${selectedKid}`;
+      }
 
       const response = await fetch(
-        `http://localhost:8000/chatpj/SetUpNewStoryOrGetOldStory?story_id=${storyId}`,
+        sendURL,
         {
           method: 'GET',
           headers: {
@@ -219,15 +233,25 @@ export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
           timestamp: new Date(entry.created_on),
         }));
         setMessages(initialMessages);
-        // if (initialMessages.length > 0) {
-        //   setStoryTitle(initialMessages[0].title || 'Story');
-        // }
+        if (initialMessages.length > 0) {
+          setStoryTitle(initialMessages[0].title || 'Story');
+        }
+        // Set kid name from localStorage
+        const storedLogin = localStorage.getItem('userLogin');
+        if (storedLogin) {
+          try {
+            const user = JSON.parse(storedLogin);
+            setKidName(user.username || 'Student');
+          } catch (e) {
+            console.error('Error parsing stored login:', e);
+          }
+        }
       } else {
         setMessages([]);
       }
     } catch (error) {
       console.error('Error fetching story:', error);
-      // Fallback message
+
       const fallbackMessage: ChatMessage = {
         id: 1,
         text: '<p>Sorry, could not load the story. Please try again.</p>',
@@ -240,10 +264,16 @@ export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
     }
   };
 
+  const openReport = async (type: 'new' | 'old') => {
+    console.log(`Opening report dialog with type: ${type}, userStoryId: ${userStoryId}`);
+    setViewState(type);
+    setIsReportDialogOpen(true);
+  };
+
+
   return (
     <div className="page-wrapper-kids">
-      
-      {/* TABLE OF CONTENTS SIDEBAR */}
+
       <div className="toc-sidebar-kids">
         <div className="toc-header-kids">
           🗺️ Story Map
@@ -264,32 +294,21 @@ export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
         </div>
       </div>
 
-      {/* 3. EXISTING CHAT CONTAINER (Slightly modified) */}
       <div className="chat-container-kids">
         <div className="chat-header-kids">
-          AI Story Chat
+          <span>AI Story Chat</span>
         </div>
 
         <div className="chat-messages-kids">
-          {/* Start Message */}
-          {/* <div
-            id="msg--1" 
-            key={-1}
-            className={`message-kids ai`}
-          >
-            <div dangerouslySetInnerHTML={{ __html: tempstart }} />
-            <div className="message-time-kids"></div>
-          </div> */}
 
-          {/* Message Loop */}
           {messages.map(msg => (
             <div
-              id={`msg-${msg.id}`} // IMPORTANT: ID for scrolling
+              id={`msg-${msg.id}`} 
               key={msg.id}
               className={`message-kids ${msg.sender === 'user' ? 'user' : 'ai'}`}
             >
               <div dangerouslySetInnerHTML={{ __html: msg.text }} />
-              {msg.sender === 'user' && (
+              {msg.sender === 'user' && !currentUser?.isParent && (
                 <button
                   className="trackback-button-kids"
                   onClick={() => handleTrackBack(msg.id)}
@@ -310,6 +329,8 @@ export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
           <div ref={messagesEndRef} />
         </div>
 
+
+        { !currentUser?.isParent ? 
         <div className="chat-input-area-kids">
           <div className="chat-input-wrapper-kids">
             <textarea
@@ -334,7 +355,39 @@ export default function ChatPageComponent({ onTokenExpired }: ChatPageProps) {
             </button>
           </div>
         </div>
+        : <>
+          {currentUser?.isParent && (
+            <>
+            <button
+              className="report-header-btn"
+              onClick={() => openReport('new')}
+              title="View story report"
+            >
+              Generate Report for this story chat
+            </button>
+            <button
+              className="report-header-btn"
+              onClick={() => openReport('old')}
+              title="View story report"
+            >
+              Review the last report
+            </button>
+            </>
+          )}
+        </>}
+
       </div>
+
+      {/* Report Dialog */}
+      <ReportDialog
+        isOpen={isReportDialogOpen}
+        storyTitle={storyTitle}
+        kidName={kidName}
+        userStoryId={userStoryId || 0}
+        ViewState={ViewState}
+        onClose={() => setIsReportDialogOpen(false)}
+        onTokenExpired={onTokenExpired}
+      />
     </div>
   );
 }

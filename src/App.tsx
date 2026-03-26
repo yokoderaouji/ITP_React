@@ -4,8 +4,9 @@ import './App.css';
 import LoginPageComponent from './Component/Login/LoginPagecomponent';
 import MainPageComponent from './Component/MainPage/MainPageComponent';
 import ChatPageComponent from './Component/Chat/ChatPageComponent';
+import ParentMainPageComponent from './Component/ParentPage/ParentMainPageComponent';
 
-interface UserLogin {
+export interface UserLogin {
   username: string;
   role: 'kid' | 'parent';
   loginTime: string;
@@ -40,13 +41,13 @@ function App() {
   // };
 
   const handleStorySelect = (storyId: string) => {
-    // Transition to chat page when story is selected
     setCurrentPage('chat');
   };
 
   const handleLogout = () => {
     localStorage.removeItem('userLogin');
     localStorage.removeItem('selectedStory');
+    localStorage.removeItem('selectedKid');
     setIsLoggedIn(false);
     setCurrentUser(null);
     setCurrentPage('login');
@@ -57,6 +58,7 @@ function App() {
     localStorage.removeItem('accessToken');
     localStorage.removeItem('userLogin');
     localStorage.removeItem('selectedStory');
+    localStorage.removeItem('selectedKid');
     // alert('Your session has expired. Please log in again.');
     setIsLoggedIn(false);
     setCurrentUser(null);
@@ -69,11 +71,19 @@ function App() {
         <LoginPageComponent />
       ) : currentPage === 'main' && currentUser ? (
         <>
-          <MainPageComponent 
-            onStorySelect={handleStorySelect}
-            onLogout={handleLogout}
-            onTokenExpired={handleTokenExpired}
-          />
+          {currentUser.isParent ? (
+            <ParentMainPageComponent 
+              onLogout={handleLogout}
+              onTokenExpired={handleTokenExpired}
+              onStorySelect={handleStorySelect}
+            />
+          ) : (
+            <MainPageComponent 
+              onStorySelect={handleStorySelect}
+              onLogout={handleLogout}
+              onTokenExpired={handleTokenExpired}
+            />
+          )}
         </>
       ) : currentPage === 'chat' && currentUser ? (
         <>
@@ -91,6 +101,7 @@ function App() {
               <strong>👋 Welcome, {currentUser.username}!</strong> 
             </div>
             <div style={{ display: 'flex', gap: '10px' }}>
+            
               <button 
                 onClick={() => setCurrentPage('main')}
                 style={{
@@ -104,8 +115,10 @@ function App() {
                   fontSize: '14px'
                 }}
               >
-                📖 Story List
+                {currentUser.isParent ? '📖 Dashboard' : '📖 Story List'}
               </button>
+
+
               <button 
                 onClick={handleLogout}
                 style={{
@@ -123,7 +136,7 @@ function App() {
               </button>
             </div>
           </div>
-          <ChatPageComponent onTokenExpired={handleTokenExpired} />
+          <ChatPageComponent onTokenExpired={handleTokenExpired} currentUser={currentUser} />
         </>
       ) : (
         <LoginPageComponent />
