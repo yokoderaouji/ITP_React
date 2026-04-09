@@ -30,7 +30,6 @@ export default function LoginPageComponent() {
 
   // Handle role selection
   const handleRoleChange = (role: 'kid' | 'parent') => {
-    console.log('Role changed to: ' + role);
     setIsParentLogin(role === 'parent');
     setFormData(prev => ({
       ...prev,
@@ -103,6 +102,7 @@ export default function LoginPageComponent() {
 
         const loginData = {
             username: data.user.username,
+            nickname: data.user.nickname,
             role: data.user.type,                    
             loginTime: new Date().toISOString(),
             isParent: isParentLogin,

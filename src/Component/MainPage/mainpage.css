@@ -408,38 +408,6 @@
   font-weight: bold;
 }
 
-/* ===== FILTER/CATEGORY TABS ===== */
-.category-tabs {
-  display: flex;
-  gap: 12px;
-  margin-bottom: 30px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.category-tab {
-  padding: 10px 20px;
-  border: 3px solid white;
-  background: transparent;
-  color: white;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  font-family: inherit;
-  font-size: 14px;
-  transition: all 0.3s;
-}
-
-.category-tab:hover {
-  transform: translateY(-2px);
-  background: rgba(255, 255, 255, 0.2);
-}
-
-.category-tab.active {
-  background: white;
-  color: #667eea;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
 
 /* ===== FOOTER ===== */
 .mainpage-footer {

@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import { UserLogin } from '../../App';
 import './parentmainpage.css';
 
-interface UserLogin {
-  username: string;
-  role: 'kid' | 'parent';
-  loginTime: string;
-  isParent: boolean;
-}
+
 
 interface KidProfile {
   user_id: number;
@@ -24,9 +20,10 @@ interface ParentMainPageProps {
   onLogout?: () => void;
   onTokenExpired?: () => void;
   onStorySelect?: (storyId: string) => void;
+  onCreateStoryClick?: () => void;
 }
 
-export default function ParentMainPageComponent({ onLogout, onTokenExpired,onStorySelect }: ParentMainPageProps) {
+export default function ParentMainPageComponent({ onLogout, onTokenExpired,onStorySelect, onCreateStoryClick }: ParentMainPageProps) {
   const [currentUser, setCurrentUser] = useState<UserLogin | null>(null);
   const [kids, setKids] = useState<KidProfile[]>([]);
   const [selectedKidId, setSelectedKidId] = useState<number | null>(null);
@@ -48,12 +45,11 @@ export default function ParentMainPageComponent({ onLogout, onTokenExpired,onSto
     }
   }, []);
 
-  // Fetch kids list on mount
+
   useEffect(() => {
     fetchKids();
   }, []);
 
-  // Fetch story records when kid is selected
   useEffect(() => {
     if (selectedKidId) {
       fetchStoryRecords(selectedKidId);
@@ -156,10 +152,27 @@ export default function ParentMainPageComponent({ onLogout, onTokenExpired,onSto
           <div className="navbar-avatar">👨‍👩‍👧‍👦</div>
           <div className="navbar-info">
             <h2>Parent Dashboard</h2>
-            <p>Welcome, {currentUser?.username || 'Parent'}!</p>
+            <p>Welcome, {currentUser?.nickname || 'Parent'}!</p>
           </div>
         </div>
         <div className="navbar-right">
+          <button 
+            className="navbar-button btn-nav-settings"
+            onClick={onCreateStoryClick}
+            style={{
+              background: '#667eea',
+              color: 'white',
+              border: 'none',
+              padding: '10px 16px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              fontSize: '14px',
+              marginRight: '10px'
+            }}
+          >
+            ✨ Create Story
+          </button>
           <button 
             className="navbar-button btn-nav-logout"
             onClick={handleLogout}

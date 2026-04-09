@@ -42,13 +42,14 @@ interface MainPageComponentProps {
   onStorySelect?: (storyId: string) => void;
   onLogout?: () => void;
   onTokenExpired?: () => void; // invoked when server indicates token expiry
+  onCreateStoryClick?: () => void;
 }
 
 // we'll keep a placeholder so the type above compiles correctly; actual data comes from API
 // const AVAILABLE_STORIES: Story[] = [];
 
 
-export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpired }: MainPageComponentProps) {
+export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpired, onCreateStoryClick }: MainPageComponentProps) {
   const [currentUser, setCurrentUser] = useState<UserLogin | null>(null);
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [favorites, setFavorites] = useState<string[]>([]);
@@ -197,6 +198,23 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
             ⚙️ Settings
           </button> */}
           <button 
+            className="navbar-button btn-nav-settings"
+            onClick={onCreateStoryClick}
+            style={{
+              background: '#667eea',
+              color: 'white',
+              border: 'none',
+              padding: '10px 16px',
+              borderRadius: '8px',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              fontSize: '14px',
+              marginRight: '10px'
+            }}
+          >
+            ✨ Create Story
+          </button>
+          <button 
             className="navbar-button btn-nav-logout"
             onClick={handleLogout}
           >
@@ -210,18 +228,6 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
         <h1 className="section-title">📖 Choose Your Story</h1>
         <p className="section-subtitle">Pick an adventure and let's get started! 🎮</p>
 
-        {/* Category Tabs */}
-        <div className="category-tabs">
-          {/* {categories.map(category => (
-            <button
-              key={category}
-              className={`category-tab ${selectedCategory === category ? 'active' : ''}`}
-              onClick={() => setSelectedCategory(category)}
-            >
-              {category}
-            </button>
-          ))} */}
-        </div>
 
         {/* Stories Grid */}
         {filteredStories.length > 0 ? (
