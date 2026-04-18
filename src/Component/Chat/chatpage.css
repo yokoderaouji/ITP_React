@@ -1,18 +1,18 @@
 .page-wrapper-kids {
   display: flex;
-  flex-direction: row; /* Side by side */
+  flex-direction: row; 
   height: 100vh;
-  max-width: 1200px; /* Increased width to accommodate sidebar */
+  max-width: 1200px; 
   margin: 0 auto;
   overflow: hidden;
-  background: #f0f8ff; /* Light background for the gap */
+  background: #f0f8ff; 
   font-family: 'Comic Sans MS', 'Chalkboard', 'Arial Rounded MT Bold', sans-serif;
 }
 
-/* --- SIDEBAR STYLES --- */
+
 .toc-sidebar-kids {
   width: 250px;
-  background: #ffecb3; /* Pastel Yellow/Wood look */
+  background: #ffecb3; 
   border-right: 4px solid #ffca28;
   display: flex;
   flex-direction: column;
@@ -39,7 +39,7 @@
   gap: 10px;
 }
 
-/* Buttons in the sidebar */
+
 .toc-item-kids {
   background: white;
   border: 2px solid #5d4037;
@@ -51,7 +51,7 @@
   font-size: 16px;
   color: #5d4037;
   transition: all 0.2s;
-  box-shadow: 0 4px 0 #5d4037; /* Cartoon 3D effect */
+  box-shadow: 0 4px 0 #5d4037; 
   display: flex;
   align-items: center;
   gap: 8px;
@@ -67,16 +67,11 @@
   box-shadow: 0 0 0 #5d4037;
 }
 
-.toc-item-kids.start-node {
-  background: #b2dfdb; /* Different color for start */
-  font-weight: bold;
-}
-
 .toc-icon {
   font-size: 20px;
 }
 
-/* Scrollbar for sidebar */
+
 .toc-list-kids::-webkit-scrollbar {
   width: 8px;
 }
@@ -84,16 +79,6 @@
   background: #ffca28;
   border-radius: 4px;
 }
-
-/* --- ADJUST EXISTING CHAT CONTAINER --- */
-/* .chat-container-kids {
-  flex: 1; 
-  display: flex;
-  flex-direction: column;
-
-  background: linear-gradient(135deg, #a8e6cf, #dcedc1, #ffd3b6, #ffaaa5);
-  border-left: 2px solid rgba(0,0,0,0.1);
-} */
 
 
 .chat-container-kids {
@@ -189,13 +174,6 @@
   border-bottom-left-radius: 8px;
 }
 
-.message-time-kids {
-  font-size: 12px;
-  margin-top: 8px;
-  opacity: 0.8;
-  text-align: right;
-}
-
 .loading-kids {
   align-self: flex-start;
   background: #fff;
@@ -250,6 +228,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
+  flex-shrink: 0;
+}
+
+.svg-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.svg-icon-loading {
+  animation: spin 1s linear infinite;
+  display: inline-block;
 }
 
 .chat-send-button-kids:hover:not(:disabled) {
@@ -260,6 +252,10 @@
 .chat-send-button-kids:disabled {
   background: #ccc;
   transform: none;
+}
+
+.chat-send-button-kids:disabled img {
+  filter: brightness(0.7) invert(1);
 }
 
 @keyframes popIn {
@@ -278,7 +274,7 @@
   to { transform: rotate(360deg); }
 }
 
-/* Track back button styling */
+
 .trackback-button-kids {
   display: block;
   margin-top: 8px;

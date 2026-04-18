@@ -18,7 +18,6 @@ export default function LoginPageComponent() {
   const [errorMessage, setErrorMessage] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
 
-  // Handle input change
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
@@ -28,7 +27,6 @@ export default function LoginPageComponent() {
     setErrorMessage(''); 
   };
 
-  // Handle role selection
   const handleRoleChange = (role: 'kid' | 'parent') => {
     setIsParentLogin(role === 'parent');
     setFormData(prev => ({
@@ -62,7 +60,6 @@ export default function LoginPageComponent() {
     return true;
   };
 
-  // Handle login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setErrorMessage('');
@@ -129,14 +126,13 @@ export default function LoginPageComponent() {
   return (
     <div className="login-page-wrapper">
       <div className="login-container">
-        {/* Header */}
         <div className="login-header">
           <span className="emoji-header">🚀✨</span>
           <h1 className="login-title">Story Quest</h1>
           <p className="login-subtitle">Your Epic Adventure Awaits!</p>
         </div>
 
-        {/* Messages */}
+
         <div className={`error-message ${errorMessage ? 'show' : ''}`}>
           {errorMessage}
         </div>
@@ -144,9 +140,9 @@ export default function LoginPageComponent() {
           {successMessage}
         </div>
 
-        {/* Login Form */}
+
         <form onSubmit={handleLogin} className="login-form">
-          {/* Username Input */}
+
           <div className="form-group">
             <label className="form-label">
               <span className="form-label-emoji">👤</span>
@@ -179,7 +175,7 @@ export default function LoginPageComponent() {
                 />
               </div>
 
-          {/* Role Selection */}
+
           <div className="form-group">
             <label className="form-label">
               <span className="form-label-emoji">👥</span>
@@ -207,7 +203,7 @@ export default function LoginPageComponent() {
             </div>
           </div>
 
-          {/* Parent Agreement (for kids) */}
+
           {formData.role === 'kid' && (
             <div className="checkbox-group">
               <input
@@ -226,7 +222,7 @@ export default function LoginPageComponent() {
           )}
 
 
-          {/* Login Buttons */}
+
           <div className="login-button-group">
             <button
               type="submit"
@@ -263,27 +259,7 @@ export default function LoginPageComponent() {
           </div>
         </form>
 
-        {/* Footer */}
-        <div className="login-footer">
-          {/* <p className="footer-text">
-            🎨 Made with love for young adventurers everywhere!
-          </p>
-          <div className="safety-badges">
-            <div className="badge">
-              <span className="badge-emoji">✅</span>
-              Safe
-            </div>
-            <div className="badge">
-              <span className="badge-emoji">👶</span>
-              Kid-Friendly
-            </div>
-            <div className="badge">
-              <span className="badge-emoji">🎯</span>
-              Fun
-            </div>
-          </div> */}
 
-        </div>
       </div>
     </div>
   );

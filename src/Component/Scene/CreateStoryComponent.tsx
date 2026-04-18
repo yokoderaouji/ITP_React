@@ -65,7 +65,10 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
   };
 
   const handleCreateTemplate = async () => {
-    CheckRequireInput(false);
+
+    if(!CheckRequireInput(false)) {
+      return;
+    }
     setIsLoading(true);
     setTestOutput('');
     setGenTemplate('');
@@ -141,6 +144,7 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
       const data = await response.json();
       if (data.status === 'SUCCESS') {
         setTestOutput(data.story_intro || '');
+        console.log('Template test successful. Output:', data.story_intro);
         setResult(data.story_intro || '');
       } else {
         setTestOutput('Template test failed. Please try again.');
@@ -164,6 +168,7 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
     });
     setResult('');
     setTestOutput('');
+    setGenTemplate('');
   };
 
   const  handleFinalCreate = async () => {
@@ -301,7 +306,7 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
               </div>
             </div>
 
-            {/* Action Buttons */}
+
             <div className="input-actions">
               <button
                 className="action-btn btn-test"
@@ -314,7 +319,7 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
                     Creating...
                   </>
                 ) : (
-                  <>🚀 Create a story Template</>
+                  <>🚀 (Step 1)Create a story Template</>
                 )}
               </button>
 
@@ -329,10 +334,14 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
                     Testing...
                   </>
                 ) : (
-                  <>🚀 Test Template</>
+                  <>🚀 (Step 2)Test Template</>
                 )}
               </button>
 
+              
+            </div>
+
+            <div className="input-actions" style={{ marginTop: '10px' }}>
               <button
                 className="action-btn btn-clear"
                 onClick={handleClearAll}
@@ -340,7 +349,7 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
               >
                 🔄 Clear All
               </button>
-            </div>
+              </div>
 
             <div className="form-group">
               <label htmlFor="plot">Output setting (!!!Must not edit here if you do not know what you are doing!!!)</label>
@@ -356,7 +365,7 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
 
           </div>
 
-          {/* Output Panel */}
+
           <div className="output-panel">
             <div className="panel-title">📺 Preview Result</div>
 

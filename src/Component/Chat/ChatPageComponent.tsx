@@ -107,13 +107,9 @@ export default function ChatPageComponent({ onTokenExpired,currentUser }: ChatPa
 
     } catch (error) {
 
-      const errorMsg: ChatMessage = {
-        id: Date.now() + 1,
-        text: 'something went wrong... Please try again later.',
-        sender: 'ai',
-        timestamp: new Date(),
-      };
-      setMessages(prev => [...prev, errorMsg]);
+      alert('something went wrong... Please try again later.');
+      setMessages(prev => prev.slice(0, -1));
+      
     } finally {
       setIsLoading(false);
     }
@@ -227,7 +223,8 @@ export default function ChatPageComponent({ onTokenExpired,currentUser }: ChatPa
       if (responseData.status === 'SUCCESS' && responseData.data.entries) {
         const initialMessages: ChatMessage[] = responseData.data.entries.map((entry: any) => ({
           id: entry.user_story_entry_id,
-          text: entry.entry_content.replace(/\\"/g, '"'),
+          // text: entry.entry_content.replace(/\\"/g, '"'),
+          text: entry.entry_content,
           sender: entry.entry_role,
           title: entry.entry_title,
           timestamp: new Date(entry.created_on),
@@ -236,7 +233,7 @@ export default function ChatPageComponent({ onTokenExpired,currentUser }: ChatPa
         if (initialMessages.length > 0) {
           setStoryTitle(initialMessages[0].title || 'Story');
         }
-        // Set kid name from localStorage
+        
         const storedLogin = localStorage.getItem('userLogin');
         if (storedLogin) {
           try {
@@ -322,7 +319,7 @@ export default function ChatPageComponent({ onTokenExpired,currentUser }: ChatPa
 
           {isLoading && (
             <div className="loading-kids">
-              <div className="dino-loading" role="img" aria-label="thinking">Thinking...</div>
+              <div className="dino-loading" role="img" aria-label="thinking">Loading...</div>
             </div>
           )}
 
@@ -348,9 +345,9 @@ export default function ChatPageComponent({ onTokenExpired,currentUser }: ChatPa
               disabled={!inputValue.trim() || isLoading}
             >
               {isLoading ? (
-                  <span style={{ animation: 'spin 1s linear infinite', display: 'inline-block' }}>Wait</span>
+                  <img src="/loading.svg" alt="Loading" className="svg-icon svg-icon-loading"  />
               ) : (
-                  <>Send</>
+                  <img src="/send.svg" alt="Send" className="svg-icon"  />
               )}
             </button>
           </div>

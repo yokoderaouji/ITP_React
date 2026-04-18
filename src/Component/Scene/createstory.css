@@ -1,4 +1,4 @@
-/* Main Wrapper */
+
 .create-story-wrapper {
   display: flex;
   flex-direction: column;
@@ -8,7 +8,7 @@
   padding: 20px;
 }
 
-/* Container */
+
 .create-story-container {
   max-width: 1400px;
   width: 100%;
@@ -18,7 +18,7 @@
   gap: 30px;
 }
 
-/* Header */
+
 .create-header {
   text-align: center;
   padding: 40px 20px;
@@ -41,7 +41,7 @@
   opacity: 0.95;
 }
 
-/* Content Layout */
+
 .create-content {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -49,7 +49,7 @@
   margin-bottom: 40px;
 }
 
-/* Panels */
+
 .input-panel,
 .output-panel {
   background: white;
@@ -64,13 +64,12 @@
 .panel-title {
   font-size: 22px;
   font-weight: bold;
-  color: #333;
   padding-bottom: 15px;
   border-bottom: 3px solid #667eea;
   margin: 0;
 }
 
-/* Form Groups */
+
 .form-group {
   display: flex;
   flex-direction: column;
@@ -80,7 +79,6 @@
 .form-group label {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -121,7 +119,7 @@
   min-height: 80px;
 }
 
-/* Action Buttons */
+
 .input-actions {
   display: flex;
   gap: 12px;
@@ -188,7 +186,7 @@
   cursor: not-allowed;
 }
 
-/* Loading Spinner */
+
 .loading-spinner {
   display: inline-block;
   width: 16px;
@@ -205,7 +203,7 @@
   }
 }
 
-/* Output Panel States */
+
 .output-panel {
   display: flex;
   flex-direction: column;
@@ -242,7 +240,7 @@
   font-weight: bold;
 }
 
-/* Result Display */
+
 .result-display {
   flex: 1;
   background: #f9f9f9;
@@ -251,12 +249,12 @@
   border: 2px solid #e0e0e0;
   max-height: 600px;
   overflow-y: auto;
+  animation: fadeIn 0.3s ease;
 }
 
 .result-content {
   font-size: 14px;
   line-height: 1.6;
-  color: #333;
 }
 
 .result-content h1,
@@ -299,7 +297,6 @@
   font-size: 12px;
 }
 
-/* Scrollbar styling */
 .result-display::-webkit-scrollbar {
   width: 8px;
 }
@@ -318,14 +315,14 @@
   background: #764ba2;
 }
 
-/* Output Actions */
+
 .output-actions {
   display: flex;
   gap: 12px;
   margin-top: 15px;
 }
 
-/* Empty State */
+
 .empty-state {
   flex: 1;
   display: flex;
@@ -356,7 +353,6 @@
   color: #999;
 }
 
-/* Responsive Design */
 @media (max-width: 1200px) {
   .create-content {
     grid-template-columns: 1fr;
@@ -450,7 +446,6 @@
   }
 }
 
-/* Animations */
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -460,8 +455,4 @@
     opacity: 1;
     transform: translateY(0);
   }
-}
-
-.result-display {
-  animation: fadeIn 0.3s ease;
 }

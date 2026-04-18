@@ -1,18 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown';
 import './reportdialog.css';
-
-interface ReportDialogProps {
-  isOpen: boolean;
-  storyTitle: string;
-  kidName: string;
-  userStoryId: number;
-  ViewState:'new' | 'old';
-  onClose: () => void;
-  onTokenExpired?: () => void;
-}
-
-
+import { ReportDialogProps } from './ReportDialogInterface';
 
 export default function ReportDialog({
   isOpen,
@@ -118,7 +107,6 @@ export default function ReportDialog({
   return (
     <div className="report-dialog-overlay" onClick={onClose}>
       <div className="report-dialog-content" onClick={(e) => e.stopPropagation()}>
-        {/* Close Button */}
         {!isLoading && <button className="dialog-close-btn" onClick={onClose}>
           ✕
         </button>
@@ -126,7 +114,6 @@ export default function ReportDialog({
         }
         
 
-        {/* Report View */}
         {(view === 'new' || view === 'old') && reportContent && (
           <>
             <div className="dialog-header">
@@ -139,10 +126,8 @@ export default function ReportDialog({
             <div className="dialog-body report-body">
               <ReactMarkdown
             components={{
-              // Customizing how specific markdown elements are rendered
               h2: ({ node, ...props }) => <h2 className="report-title" {...props} />,
               h3: ({ node, ...props }) => {
-                // Optionally add emojis based on the section title
                 let icon = '📌';
                 if (props.children?.toString().includes('Imagination')) icon = '🌌';
                 if (props.children?.toString().includes('Language')) icon = '🗣️';
@@ -168,7 +153,6 @@ export default function ReportDialog({
           </>
         )}
 
-        {/* Loading State */}
         {isLoading && (
           <div className="dialog-loading">
             <div className="loading-spinner"></div>

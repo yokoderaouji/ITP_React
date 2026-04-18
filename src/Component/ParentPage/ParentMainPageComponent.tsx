@@ -1,27 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { UserLogin } from '../../App';
 import './parentmainpage.css';
+import { KidProfile,StoryRecord,ParentMainPageProps } from './ParentMainPageInterface';
 
 
-
-interface KidProfile {
-  user_id: number;
-  user_nickname: string;
-  created_on?: string;
-}
-
-interface StoryRecord {
-  user_story_id: number;
-  story_id: number;
-  story_title: string;
-}
-
-interface ParentMainPageProps {
-  onLogout?: () => void;
-  onTokenExpired?: () => void;
-  onStorySelect?: (storyId: string) => void;
-  onCreateStoryClick?: () => void;
-}
 
 export default function ParentMainPageComponent({ onLogout, onTokenExpired,onStorySelect, onCreateStoryClick }: ParentMainPageProps) {
   const [currentUser, setCurrentUser] = useState<UserLogin | null>(null);
@@ -32,7 +14,6 @@ export default function ParentMainPageComponent({ onLogout, onTokenExpired,onSto
   const [isLoadingStories, setIsLoadingStories] = useState(false);
 
 
-  // Load parent user info
   useEffect(() => {
     const storedLogin = localStorage.getItem('userLogin');
     if (storedLogin) {
@@ -80,7 +61,6 @@ export default function ParentMainPageComponent({ onLogout, onTokenExpired,onSto
       const data = await response.json();
       if (data.status === 'SUCCESS' && Array.isArray(data.children)) {
         setKids(data.children);
-        // Auto-select first kid if available
         if (data.children.length > 0) {
           setSelectedKidId(data.children[0].user_id);
         }
@@ -126,7 +106,6 @@ export default function ParentMainPageComponent({ onLogout, onTokenExpired,onSto
 
   const goToChatPage = (storyId: number) => {
     if (onStorySelect) {
-      //console.log('Selected kid ID:', selectedKidId);
       localStorage.setItem('selectedKid', selectedKidId?.toString() || '');
       localStorage.setItem('selectedStory', storyId.toString());
       onStorySelect(storyId.toString());
@@ -146,7 +125,6 @@ export default function ParentMainPageComponent({ onLogout, onTokenExpired,onSto
 
   return (
     <div className="parent-mainpage-wrapper">
-      {/* Header */}
       <div className="parent-navbar">
         <div className="navbar-left">
           <div className="navbar-avatar">👨‍👩‍👧‍👦</div>
@@ -183,7 +161,6 @@ export default function ParentMainPageComponent({ onLogout, onTokenExpired,onSto
       </div>
 
       <div className="parent-content-wrapper">
-        {/* Kids Selector Panel */}
         <div className="kids-panel">
           <div className="panel-header">
             <h3>👶 Select a Child</h3>
@@ -217,7 +194,6 @@ export default function ParentMainPageComponent({ onLogout, onTokenExpired,onSto
           )}
         </div>
 
-        {/* Story Records Panel */}
         <div className="stories-panel">
           <div className="panel-header">
             <h3>📚 Story Records</h3>
@@ -251,7 +227,6 @@ export default function ParentMainPageComponent({ onLogout, onTokenExpired,onSto
                     goToChatPage(record.story_id);
                   }}
                 >
-                  {/* Card Header */}
                   <div className="record-header">
                     <div className="record-title-section">
                       <h4 className="record-title">{record.story_title}</h4>

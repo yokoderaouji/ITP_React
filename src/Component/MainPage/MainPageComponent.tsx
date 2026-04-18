@@ -1,53 +1,18 @@
 
 import React, { useState, useEffect } from 'react';
+import { UserLogin } from '../../App';
 import './mainpage.css';
+import { ApiStory, Story } from './MainPageInterface';
 
-interface UserLogin {
-  username: string;
-  role: 'kid' | 'parent';
-  loginTime: string;
-  isParent: boolean;
-}
 
-interface Story {
-  id: string;
-  title: string;
-  description: string;
-  emoji: string;
-  category: string;
-  locked: boolean;
-  requiredLevel?: number;
-  tags: string[];
-}
 
-interface ApiStory {
-  story_id: number;
-  story_title: string;
-  story_description: string;
-  story_content?: string;
-  story_start?: string;
-  story_setting_1?: string;
-  story_setting_2?: string;
-  story_setting_3?: string;
-  story_setting_4?: string;
-  story_setting_5?: string;
-  story_tag_1?: string;
-  story_tag_2?: string;
-  story_tag_3?: string;
-  story_status?: string;
-  [key: string]: any;
-}
 
 interface MainPageComponentProps {
   onStorySelect?: (storyId: string) => void;
   onLogout?: () => void;
-  onTokenExpired?: () => void; // invoked when server indicates token expiry
+  onTokenExpired?: () => void; 
   onCreateStoryClick?: () => void;
 }
-
-// we'll keep a placeholder so the type above compiles correctly; actual data comes from API
-// const AVAILABLE_STORIES: Story[] = [];
-
 
 export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpired, onCreateStoryClick }: MainPageComponentProps) {
   const [currentUser, setCurrentUser] = useState<UserLogin | null>(null);
@@ -63,7 +28,7 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
       if (t && t.trim()) tags.push(t.trim());
     });
 
-    const category = api.story_setting_1 || 'General';
+    const category = api.story_setting_1 || '';
 
     return {
       id: api.story_id.toString(),
@@ -72,7 +37,6 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
       emoji: '📖',
       category,
       locked: api.story_status !== 'Y',
-      requiredLevel: undefined,
       tags,
     };
   };
@@ -89,7 +53,6 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
         },
       });
       if (res.status === 401 || res.status === 403) {
-        // token probably expired or unauthorized
         if (onTokenExpired) onTokenExpired();
         return;
       }
@@ -109,7 +72,6 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
   };
 
   useEffect(() => {
-    // Load user info
     const storedLogin = localStorage.getItem('userLogin');
     if (storedLogin) {
       try {
@@ -119,16 +81,8 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
         console.error('Error parsing stored login:', error);
       }
     }
-
-    // fetch list of stories from server
     fetchStories();
   }, []);
-
-
-  // Filter stories based on selected category
-  const filteredStories = selectedCategory === 'All' 
-    ? stories 
-    : stories.filter(s => s.category === selectedCategory);
 
   const handleStoryClick = (storyId: string) => {
     const story = stories.find(s => s.id === storyId);
@@ -139,13 +93,6 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
         console.log('Selected story:', story.id);
         onStorySelect(storyId);
       }
-      // } else {
-      //   // Store selected story in localStorage
-      //   localStorage.setItem('selectedStory', story.id);
-      //   console.log('Selected story:', story.id);
-      //   // In a real app, you would navigate to the chat page here
-      //   console.log('Starting story:', storyId);
-      // }
     }
   };
 
@@ -181,7 +128,7 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
 
   return (
     <div className="mainpage-wrapper">
-      {/* Navbar */}
+
       <div className="mainpage-navbar">
         <div className="navbar-left">
           <div className="navbar-avatar">🧒</div>
@@ -191,12 +138,6 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
           </div>
         </div>
         <div className="navbar-right">
-          {/* <button 
-            className="navbar-button btn-nav-settings"
-            onClick={() => console.log('Settings clicked')}
-          >
-            ⚙️ Settings
-          </button> */}
           <button 
             className="navbar-button btn-nav-settings"
             onClick={onCreateStoryClick}
@@ -223,22 +164,20 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
         </div>
       </div>
 
-      {/* Main Content */}
+    
       <div className="mainpage-content">
         <h1 className="section-title">📖 Choose Your Story</h1>
         <p className="section-subtitle">Pick an adventure and let's get started! 🎮</p>
 
-
-        {/* Stories Grid */}
-        {filteredStories.length > 0 ? (
+        {stories.length > 0 ? (
           <div className="stories-grid">
-            {filteredStories.map(story => (
+            {stories.map(story => (
               <div
                 key={story.id}
                 className={`story-card ${story.locked ? 'locked' : ''}`}
                 onClick={() => handleStoryClick(story.id)}
               >
-                {/* Header with emoji */}
+  
                 <div className="story-card-header">
                   {story.locked && (
                     <div className="story-lock-badge">🔒</div>
@@ -246,13 +185,10 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
                   <div className="story-emoji">{story.emoji}</div>
                 </div>
 
-                {/* Body */}
                 <div className="story-card-body">
                   <h3 className="story-title">{story.title}</h3>
                   <p className="story-description">{story.description}</p>
 
-
-                  {/* Tags */}
                   <div className="story-meta">
                     {story.tags.map(tag => (
                       <span key={tag} className="story-badge" style={{ background: '#e8f5e9', color: '#2e7d32' }}>
@@ -262,7 +198,6 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
                   </div>
                 </div>
 
-                {/* Footer with buttons */}
                 <div className="story-card-footer">
                   {story.locked ? (
                     <button className="story-button btn-play" disabled>
