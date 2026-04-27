@@ -1,4 +1,4 @@
-/* Overlay */
+
 .report-dialog-overlay {
   position: fixed;
   inset: 0;
@@ -19,7 +19,7 @@
   }
 }
 
-/* Dialog Box */
+
 .report-dialog-content {
   background: white;
   border-radius: 20px;
@@ -45,7 +45,7 @@
   }
 }
 
-/* Close Button */
+
 .dialog-close-btn {
   position: absolute;
   top: 15px;
@@ -74,7 +74,7 @@
   transform: scale(0.95);
 }
 
-/* Header */
+
 .dialog-header {
   padding: 30px 30px 20px;
   border-bottom: 2px solid #f0f0f0;
@@ -102,7 +102,7 @@
   line-height: 1.5;
 }
 
-/* Body */
+
 .dialog-body {
   flex: 1;
   padding: 30px;
@@ -170,7 +170,7 @@
   color: white;
 }
 
-/* Actions */
+
 .dialog-actions {
   display: flex;
   flex-direction: column;
@@ -205,7 +205,7 @@
   text-align: center;
 }
 
-/* Button Styles */
+
 .btn-generate {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: white;
@@ -255,7 +255,7 @@
   cursor: not-allowed;
 }
 
-/* Loading State */
+
 .dialog-loading {
   position: absolute;
   inset: 0;
@@ -291,7 +291,7 @@
   font-weight: bold;
 }
 
-/* Responsive Design */
+
 @media (max-width: 768px) {
   .report-dialog-content {
     max-width: 95%;
@@ -350,7 +350,7 @@
   }
 }
 
-/* Scrollbar Styling */
+
 .dialog-body::-webkit-scrollbar {
   width: 8px;
 }

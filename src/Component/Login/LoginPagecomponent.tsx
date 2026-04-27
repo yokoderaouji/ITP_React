@@ -61,7 +61,6 @@ export default function LoginPageComponent() {
   };
 
   const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
 
@@ -93,9 +92,7 @@ export default function LoginPageComponent() {
             throw new Error(data.error || 'Login failed. Please try again.');
         }
 
-
-        setSuccessMessage(`Welcome, ${formData.username}! 🎉`);
-
+        setSuccessMessage(`Welcome, ${formData.username}!`);
 
         const loginData = {
             username: data.user.username,

@@ -83,8 +83,8 @@ export default function ReportDialog({
         alert('No previous report found for this story.');
       }
     } catch (error) {
-      console.error('Error fetching report:', error);
-      alert('Failed to fetch report. Please try again.');
+      //console.error('Error fetching report:', error);
+      alert('Model is currently experiencing high demand. Please try again later.');
     } finally {
       setIsLoading(false);
     }

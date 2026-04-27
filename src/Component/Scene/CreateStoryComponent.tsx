@@ -5,6 +5,7 @@ import './createstory.css';
 interface CreateStoryProps {
   onTokenExpired?: () => void;
   currentUser: UserLogin | null;
+  backToStoryList: () => void;
 }
 
 interface StoryTemplate {
@@ -16,7 +17,7 @@ interface StoryTemplate {
   tag3?: string;
 }
 
-export default function CreateStoryComponent({ onTokenExpired, currentUser }: CreateStoryProps) {
+export default function CreateStoryComponent({ onTokenExpired, currentUser, backToStoryList }: CreateStoryProps) {
   const [template, setTemplate] = useState<StoryTemplate>({
     title: '',
     setting: '',
@@ -53,6 +54,11 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
 
     if (!template.description.trim()) {
       alert('Please enter a story description');
+      return false;
+    }
+
+    if (!template.tag1.trim()) {
+      alert('Please enter a tag1');
       return false;
     }
 
@@ -99,8 +105,9 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
         setGenTemplate(data.story_temp || '');
       }
     } catch (error) {
-      console.error('Error creating template:', error);
-      alert(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      // console.error('Error creating template:', error);
+      alert(`Model is currently experiencing high demand. Please try again later.`);
+
     } finally {
       setIsLoading(false);
     }
@@ -110,10 +117,8 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
   const handleTestTemplate = async () => {
     
     if(!CheckRequireInput(true)) {
-      console.log('Input validation failed. Aborting test.');
       return;
     }
-    console.log('Starting template test with input:');
 
 
     setIsLoadingTest(true);
@@ -144,14 +149,12 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
       const data = await response.json();
       if (data.status === 'SUCCESS') {
         setTestOutput(data.story_intro || '');
-        console.log('Template test successful. Output:', data.story_intro);
         setResult(data.story_intro || '');
       } else {
-        setTestOutput('Template test failed. Please try again.');
+        setTestOutput('Model is currently experiencing high demand. Please try again later.');
       }
     } catch (error) {
-      console.error('Error testing template:', error);
-      setTestOutput(`Error: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      setTestOutput(`Model is currently experiencing high demand. Please try again later.`);
     } finally {
       setIsLoadingTest(false);
     }
@@ -202,18 +205,20 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser }: Cr
       }
 
       if (!response.ok) {
-        throw new Error(`Failed to test template: ${response.status}`);
+        throw new Error(`Final creation failed: ${response.status}`);
       }
 
       const data = await response.json();
       if (data.status === 'SUCCESS') {
         alert('Story template created successfully!');
+        handleClearAll();
+        backToStoryList();
       } else {
-        alert('Final creation failed. Please try again.');
+        alert('Model is currently experiencing high demand. Please try again later.');
       }
     } catch (error) {
 
-      alert('Final creation failed. Please try again.');
+      alert('Model is currently experiencing high demand. Please try again later.');
     } finally {
       setIsLoadingFinal(false);
     }

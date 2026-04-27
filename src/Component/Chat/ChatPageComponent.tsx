@@ -107,7 +107,7 @@ export default function ChatPageComponent({ onTokenExpired,currentUser }: ChatPa
 
     } catch (error) {
 
-      alert('something went wrong... Please try again later.');
+      alert('Model is currently experiencing high demand. Please try again later.');
       setMessages(prev => prev.slice(0, -1));
       
     } finally {
@@ -262,7 +262,7 @@ export default function ChatPageComponent({ onTokenExpired,currentUser }: ChatPa
   };
 
   const openReport = async (type: 'new' | 'old') => {
-    console.log(`Opening report dialog with type: ${type}, userStoryId: ${userStoryId}`);
+    //console.log(`Opening report dialog with type: ${type}, userStoryId: ${userStoryId}`);
     setViewState(type);
     setIsReportDialogOpen(true);
   };
