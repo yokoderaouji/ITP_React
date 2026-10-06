@@ -255,13 +255,13 @@ export default function CreateStoryComponent({ onTokenExpired, currentUser, back
               <label htmlFor="title">Story Description *</label>
               <textarea
                 id="description"
-                className="input-field"
+                className="textarea-field"
                 placeholder="Enter story description..."
                 value={template.description}
                 onChange={(e) => handleInputChange('description', e.target.value)}
-                maxLength={100}
+                maxLength={500}
               />
-              <span className="char-count">{template.title.length}/100</span>
+              <span className="char-count">{template.description.length}/500</span>
             </div>
 
 

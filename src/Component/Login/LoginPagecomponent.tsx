@@ -61,6 +61,7 @@ export default function LoginPageComponent() {
   };
 
   const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
     setErrorMessage('');
     setSuccessMessage('');
 
@@ -125,8 +126,7 @@ export default function LoginPageComponent() {
       <div className="login-container">
         <div className="login-header">
           <span className="emoji-header">🚀✨</span>
-          <h1 className="login-title">Story Quest</h1>
-          <p className="login-subtitle">Your Epic Adventure Awaits!</p>
+          <h1 className="login-title">AI Story House</h1>
         </div>
 
 
@@ -234,7 +234,8 @@ export default function LoginPageComponent() {
               ) : (
                 <>
                   <span className="btn-emoji">🎮</span>
-                  Start Adventure
+                  {formData.role === 'kid' && 'Start Adventure'}
+                  {formData.role === 'parent' && 'Parent Login'}
                 </>
               )}
             </button>

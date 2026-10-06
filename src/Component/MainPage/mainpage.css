@@ -102,7 +102,7 @@
   color: white;
 }
 
-/* ===== MAIN CONTENT ===== */
+
 .mainpage-content {
   max-width: 1200px;
   margin: 0 auto;
@@ -133,7 +133,7 @@
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== STORY GRID ===== */
+
 .stories-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -141,7 +141,7 @@
   margin-bottom: 50px;
 }
 
-/* ===== STORY CARD ===== */
+
 .story-card {
   background: white;
   border-radius: 20px;

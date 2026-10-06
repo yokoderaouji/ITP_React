@@ -133,7 +133,7 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
         <div className="navbar-left">
           <div className="navbar-avatar">🧒</div>
           <div className="navbar-info">
-            <h2>{currentUser?.username || 'Adventurer'}</h2>
+            <h2>{currentUser?.nickname || 'Adventurer'}</h2>
             <p>Ready for an adventure?</p>
           </div>
         </div>
@@ -167,7 +167,7 @@ export default function MainPageComponent({ onStorySelect, onLogout, onTokenExpi
     
       <div className="mainpage-content">
         <h1 className="section-title">📖 Choose Your Story</h1>
-        <p className="section-subtitle">Pick an adventure and let's get started! 🎮</p>
+        <p className="section-subtitle">Pick an adventure and get started! 🎮</p>
 
         {stories.length > 0 ? (
           <div className="stories-grid">

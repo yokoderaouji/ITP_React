@@ -238,7 +238,7 @@ export default function ChatPageComponent({ onTokenExpired,currentUser }: ChatPa
         if (storedLogin) {
           try {
             const user = JSON.parse(storedLogin);
-            setKidName(user.username || 'Student');
+            setKidName(user.nickname || 'Student');
           } catch (e) {
             console.error('Error parsing stored login:', e);
           }

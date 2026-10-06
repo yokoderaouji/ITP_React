@@ -53,13 +53,6 @@
   50% { transform: translateY(-10px); }
 }
 
-.login-subtitle {
-  font-size: 18px;
-  color: #666;
-  margin: 0;
-  font-weight: bold;
-}
-
 .emoji-header {
   font-size: 60px;
   display: block;
